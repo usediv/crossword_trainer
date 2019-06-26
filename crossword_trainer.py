@@ -38,17 +38,20 @@ while date <= today:
             clue = clue.text.split(' : ')
             # create/set dictionary values
             info = {}
-            info.update({'day': day, 'clue': clue[0], 'answer': clue[1], 'length': len(clue[1]), 'date': date})
+            info.update({'day': day, 'clue': clue[0], 'answer': clue[1],
+                        'length': len(clue[1]), 'date': date})
             # open csv and append dictionary as row
             with open('crossword_training_data.csv', 'a') as csv_file:
                 csv_writer = csv.DictWriter(csv_file,fieldnames=fieldnames)
                 csv_writer.writerow(info)
 
     print(str(clueCount) + ' clues and answers found')
+
+    #iterate dates (set value to 7 to retrieve answers for the same day)
     date += datetime.timedelta(days=1)
 
-# reading data with DictReader
-# with open('crossword_training_data.csv', 'r') as csv_file:
-#     csv_reader = csv.DictReader(csv_file,fieldnames=fieldnames)
-#     for item in csv_reader:
-#         print(item['answer'])
+# read data with DictReader
+with open('crossword_training_data.csv', 'r') as csv_file:
+    csv_reader = csv.DictReader(csv_file,fieldnames=fieldnames)
+    for item in csv_reader:
+        print(item['answer'])
